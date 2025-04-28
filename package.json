@@ -1,0 +1,15 @@
+{
+  "name": "self-discipline-man",
+  "version": "1.0.0",
+  "description": "自律打卡小程序",
+  "main": "main.js",
+  "scripts": {
+    "format": "prettier --write \"**/*.{js,vue,json,scss}\"",
+    "lint": "eslint --ext .js,.vue ."
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.2.5"
+  }
+}

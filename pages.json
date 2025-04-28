@@ -1,0 +1,75 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "自律打卡",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/login/login",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/checkin/checkin",
+      "style": {
+        "navigationBarTitleText": "打卡"
+      }
+    },
+    {
+      "path": "pages/rewards/rewards",
+      "style": {
+        "navigationBarTitleText": "奖励"
+      }
+    },
+    {
+      "path": "pages/community/community",
+      "style": {
+        "navigationBarTitleText": "社区"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "自律打卡",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#e0f5f1"
+  },
+  "tabBar": {
+    "color": "#7f8c8d",
+    "selectedColor": "#16a085",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/checkin/checkin",
+        "text": "打卡",
+        "iconPath": "static/tabbar/checkin.png",
+        "selectedIconPath": "static/tabbar/checkin-active.png"
+      },
+      {
+        "pagePath": "pages/rewards/rewards",
+        "text": "奖励",
+        "iconPath": "static/tabbar/reward.png",
+        "selectedIconPath": "static/tabbar/reward-active.png"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "社区",
+        "iconPath": "static/tabbar/community.png",
+        "selectedIconPath": "static/tabbar/community-active.png"
+      }
+    ]
+  },
+  "uniIdRouter": {}
+}
