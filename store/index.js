@@ -69,16 +69,17 @@ const store = createStore({
           data: { username, password }
         })
 
-        if (response.data.success) {
+        if (response.data && response.data.token) {
           // 保存token到本地
           uni.setStorageSync('token', response.data.token)
           // 获取用户信息
           await this.dispatch('getUserInfo')
           return true
         }
+        console.error('登录失败: 无效的响应数据', response.data)
         return false
       } catch (error) {
-        console.error('登录失败:', error)
+        console.error('登录失败:', error.message || error)
         return false
       }
     },
@@ -92,9 +93,13 @@ const store = createStore({
           data: userData
         })
 
-        return response.data.success
+        if (response.data && response.data.success) {
+          return true
+        }
+        console.error('注册失败: 无效的响应数据', response.data)
+        return false
       } catch (error) {
-        console.error('注册失败:', error)
+        console.error('注册失败:', error.message || error)
         return false
       }
     },
@@ -150,21 +155,30 @@ const store = createStore({
     async getTodayCheckin({ commit }) {
       try {
         const token = uni.getStorageSync('token')
-        if (!token) return false
+        if (!token) {
+          console.error('获取今日打卡状态失败: 未登录')
+          return false
+        }
 
         const response = await request({
           url: config.API.CHECKIN_TODAY,
           method: 'GET',
-          header: { Authorization: `Bearer ${token}` }
+          header: { 
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
         })
 
-        if (response.data.success) {
+        // 确保响应数据存在且格式正确
+        if (response && response.data) {
           commit('setLastCheckIn', response.data.date)
-          return response.data.hasCheckedIn
+          return !!response.data.hasCheckedIn
         }
+
+        console.warn('获取今日打卡状态: 响应格式不正确', response)
         return false
       } catch (error) {
-        console.error('获取今日打卡状态失败:', error)
+        console.error('获取今日打卡状态失败:', error.message || error)
         return false
       }
     },
@@ -236,9 +250,11 @@ const store = createStore({
     // 获取今日激励
     async getInspiration({ commit }) {
       try {
+        const token = uni.getStorageSync('token')
         const response = await request({
           url: config.API.INSPIRATION,
-          method: 'GET'
+          method: 'GET',
+          header: token ? { Authorization: `Bearer ${token}` } : {}
         })
         if (response.data && response.data.success) {
           commit('setInspiration', response.data.inspiration)
